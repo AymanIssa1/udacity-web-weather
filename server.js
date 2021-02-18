@@ -21,6 +21,21 @@ app.use(cors())
 app.use(express.static('website'));
 
 
+// to get projectData
+app.get('/projectdata', (req, res) => {
+  res.status(200).send(projectData)
+})
+
+// to store date, temp, and content in projectData
+app.post('/projectdata', (req, res) => {
+  const {date, temp, content} = req.body
+  projectData[date] = {
+    temp,
+    content,
+  }
+  res.status(201).send()
+})
+
 // Setup Server
 app.listen(8080, () => {
     console.log('Running server on port 8080.')

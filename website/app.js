@@ -28,18 +28,35 @@ const getWeatherData = async (baseURL, zip, apiKey) => {
     }
   }
 
-  button.addEventListener('click', () => {
-    getWeatherData(baseURL, zip.value, key)
-      .then(data => {
-          console.log(data)
-        return {date: newDate, temp: data.temp, content: feelings.value}
-      })
-      .then(data => {
-        date.innerText = data.date
-        temp.innerText = data.temp
-        content.innerText = data.content
-      })
-      .catch(e => {
-        console.error(e)
-      })
-  })
+async function saveData (path, data){
+  try {
+    await fetch(path, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+  } catch (e) {
+    throw e
+  }
+}
+
+button.addEventListener('click', () => {
+  getWeatherData(baseURL, zip.value, key)
+    .then(data => {
+        console.log(data)
+      return {date: newDate, temp: data.temp, content: feelings.value}
+    }).then(data => {
+      saveData('/projectdata', data)
+      return data
+    })
+    .then(data => {
+      date.innerText = data.date
+      temp.innerText = data.temp
+      content.innerText = data.content
+    })
+    .catch(e => {
+      console.error(e)
+    })
+})
