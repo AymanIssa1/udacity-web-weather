@@ -19,7 +19,7 @@ let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 
 const getWeatherData = async (baseURL, zip, apiKey) => {
     try {
-      const request = await fetch(`${baseURL}?zip=${zip}&APPID=${apiKey}`)
+      const request = await fetch(`${baseURL}?zip=${zip}&units=imperial&APPID=${apiKey}`)
       const result = await request.json()
       console.log(result.main)
       return result.main
