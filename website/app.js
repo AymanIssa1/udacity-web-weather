@@ -52,9 +52,9 @@ button.addEventListener('click', () => {
       return data
     })
     .then(data => {
-      date.innerText = data.date
-      temp.innerText = data.temp
-      content.innerText = data.content
+      date.innerHTML = data.date
+      temp.innerHTML = data.temp
+      content.innerHTML = data.content
     })
     .catch(e => {
       console.error(e)
